@@ -96,18 +96,7 @@ $stmt->execute();
     </table>
     <hr>
     <div class="row">
-        <?php 
-          // trazer descricao do tipo de pagamento e a soma dos valores
-          // Relacionando tabela tipo_pagamentos com pagamentos
-          $sql = "SELECT tipo_pagamentos.descricao_tipo,sum(valor) as total FROM pagamentos inner join tipo_pagamentos on pagamentos.id_tipo_pagto=tipo_pagamentos.id_tipo_pagto WHERE 1=1";
-          // completo a consulta com a faixa de datas informadas
-          if (!empty($data_inicial) && !empty($data_final)) {
-            $sql .= " AND data_vcto BETWEEN :data_inicial AND :data_final";
-          }
-          // agrupamento pelo tipo de pagamentos
-          $sql .= " group by tipo_pagamentos.id_tipo_pagto";
-        ?>
- 
+
         <div class="col-sm">
         <h3>Resumo por tipo de Despesa</h3>
         <table class="table table-striped">
@@ -119,19 +108,19 @@ $stmt->execute();
         </thead>
         <tbody>          
         <?php 
+            // consulta relacionada tabela tipo de pagamentos com pagamentos
             $sql2 = "SELECT tipo_pagamentos.descricao_tipo,sum(valor) as total FROM pagamentos inner join tipo_pagamentos on pagamentos.id_tipo_pagto=tipo_pagamentos.id_tipo_pagto WHERE 1=1";
-          
             if (!empty($data_inicial) && !empty($data_final)) {
+              // consulta entra faixa de datas
               $sql2 .= " AND data_vcto BETWEEN :data_inicial AND :data_final";
             }
-          
+            // Agrupando por tipo de pagamentos
             $sql2 .= " group by tipo_pagamentos.id_tipo_pagto";
             $stmt2 = $pdo->prepare($sql2);
             if (!empty($data_inicial) && !empty($data_final)) {
                 $stmt2->bindParam(':data_inicial', $data_inicial);
                 $stmt2->bindParam(':data_final', $data_final);
             }
-
             $stmt2->execute();
             while ($row = $stmt2->fetch(PDO::FETCH_ASSOC)): ?>
             <tr>
@@ -141,17 +130,9 @@ $stmt->execute();
         <?php endwhile; ?>
         </tbody>
         </table>
-          
-
         </div>
-        <hr>
-        <br>
         <div class="col-sm">
-            <?php
-            include 'pagamentos_graficos.php';
-            ?>
-            <p>Gráfico</p>
+            <?php include 'pagamentos_grafico.php'; ?>
         </div>        
     </div>    
-
 </div>

@@ -77,7 +77,7 @@ $stmt->execute();
         <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
             <tr>
                 <td><?php echo htmlspecialchars($row['id_recebimento']); ?></td>
-                <td><?php echo htmlspecialchars($row['nome_Cliente']); ?></td>
+                <td><?php echo htmlspecialchars($row['nome_cliente']); ?></td>
                 <td><?php echo htmlspecialchars($row['descricao']); ?></td>
                 <!-- Formata a data para o formato brasileiro -->
                 <td><?php echo date("d/m/Y", strtotime($row['data_vcto'])); ?></td>

@@ -2,15 +2,16 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="principal.php">
   <img src="https://logodix.com/logo/1872111.png" width="200px" alt="">
-  
+  </a>
+ 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
     <span class="navbar-toggler-icon"></span>
   </button>
  
   <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-      <a class="nav-link" href="principal.php">Home</a>
+      <li class="nav-item active">
+        <a class="nav-link" href="principal.php">Home <span class="sr-only">(página atual)</span></a>
       </li>
  
       <li class="nav-item dropdown">
@@ -19,30 +20,30 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="fornecedores_main.php">Fornecedores</a>
-          <a class="dropdown-item" href="#">Clientes</a>
+          <a class="dropdown-item" href="clientes_main.php">Clientes</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="tipo_pagamentos_main.php">Tipo Pagamentos</a>
           <a class="dropdown-item" href="forma_pagamentos_main.php">Forma Pagamentos</a>
-          <a class="dropdown-divider"></div>
+          <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="usuarios_main.php">Usuários</a>
         </div>
-        </li>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="pagamentos_main.php">Pagamentos</a>
+      </li>  
+      <li class="nav-item">
+        <a class="nav-link" href="recebimentos_main.php">Recebimentos</a>
+      </li>            
+      <li class="nav-item">
+        <a class="nav-link" href="relatorio_fluxo.php" target="_blank">Relatórios</a>
       </li>
       <li class="nav-item">
-      <a class="nav-link" href="#">Recebimentos</a>
-      </li>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Relatórios</a>
-      </li>
-      <li class="nav-item">
-      <a class="nav-link" href="logoff.php">Sair do sistema</a>
-      </li>
+        <a class="nav-link" href="logoff.php">Sair do sistema</a>
+      </li>      
     </ul>
  
   </div>
+ 
 </nav>
  
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

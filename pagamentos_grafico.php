@@ -1,5 +1,5 @@
 <?php
-   include 'conexao.php';
+   include 'conexao.php'; 
 ?>
 
 <html>
@@ -11,32 +11,31 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Tipo Pagamento', 'Totais'],
-          
+
           <?php
-                 $sql2 = "SELECT tipo_pagamentos.descricao_tipo,sum(valor) as total FROM pagamentos inner join tipo_pagamentos on pagamentos.id_tipo_pagto=tipo_pagamentos.id_tipo_pagto WHERE 1=1";
-          
-                 if (!empty($data_inicial) && !empty($data_final)) {
-                   $sql2 .= " AND data_vcto BETWEEN :data_inicial AND :data_final";
-                 }
-                 // Agrupando por tipo de pagamentos
-                 $sql2 .= " group by tipo_pagamentos.id_tipo_pagto";
-                 $stmt2 = $pdo->prepare($sql2);
-                 if (!empty($data_inicial) && !empty($data_final)) {
-                     $stmt2->bindParam(':data_inicial', $data_inicial);
-                     $stmt2->bindParam(':data_final', $data_final);
-                 }
-     
-                 $stmt2->execute();
-                 while ($row = $stmt2->fetch(PDO::FETCH_ASSOC)): 
+             // consulta relacionada tabela tipo de pagamentos com pagamentos
+             $sql2 = "SELECT tipo_pagamentos.descricao_tipo,sum(valor) as total FROM pagamentos inner join tipo_pagamentos on pagamentos.id_tipo_pagto=tipo_pagamentos.id_tipo_pagto WHERE 1=1";
+             if (!empty($data_inicial) && !empty($data_final)) {
+               // consulta entra faixa de datas
+               $sql2 .= " AND data_vcto BETWEEN :data_inicial AND :data_final";
+             }
+             // Agrupando por tipo de pagamentos
+             $sql2 .= " group by tipo_pagamentos.id_tipo_pagto";
+             $stmt2 = $pdo->prepare($sql2);
+             if (!empty($data_inicial) && !empty($data_final)) {
+                 $stmt2->bindParam(':data_inicial', $data_inicial);
+                 $stmt2->bindParam(':data_final', $data_final);
+             }
+             $stmt2->execute();
+             while ($row = $stmt2->fetch(PDO::FETCH_ASSOC)): 
           ?>
-          ['<?php echo htmlspecialchars($row['descricao_tipo']); ?>', <?php 
-          echo number_format($row['total'], 2, ",", "."); ?>],
+          ['<?php echo($row['descricao_tipo']) ?>', <?php echo($row['total']) ?>],
 
           <?php endwhile; ?>
-          ]);
+        ]);
 
         var options = {
-          title: 'My Daily Activities',
+          title: 'Pagamentos por periodo',
           is3D: true,
         };
 
@@ -46,6 +45,6 @@
     </script>
   </head>
   <body>
-    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+    <div id="piechart_3d" style="width: 450px; height: 250px;"></div>
   </body>
 </html>
