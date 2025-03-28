@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php
-        include '../menu.php';  // incluímos o menu nesse PHP
+        include 'menu.php';  // incluímos o menu nesse PHP
     ?> 
     <div class="container">
         <form action="processa_incluir_fornecedores.php" method="post">

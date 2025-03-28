@@ -1,6 +1,6 @@
 <?php
 // processa_editar_fornecedores.php
-include '../conexao.php'; // Conectamos ao banco de dados
+include 'conexao.php'; // Conectamos ao banco de dados
 
 $id_fornecedor = $_POST['id_fornecedor'];
 $cpf_cnpj = $_POST['cpf_cnpj'];

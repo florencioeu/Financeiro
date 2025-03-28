@@ -1,6 +1,6 @@
 <?php
 // excluir_fornecedores.php
-include '../conexao.php'; // Conectamos ao banco de dados
+include 'conexao.php'; // Conectamos ao banco de dados
 
 $id_fornecedor = $_GET['id_fornecedor'];
 
