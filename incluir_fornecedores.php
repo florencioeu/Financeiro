@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php
-        include 'menu.php';  // incluímos o menu nesse PHP
+        include '../menu.php';  // incluímos o menu nesse PHP
     ?> 
     <div class="container">
         <form action="processa_incluir_fornecedores.php" method="post">
@@ -29,6 +29,9 @@
             placeholder="Entre com o E-mail">     
 
             <label for="cep">CEP - <span style="color: red;">Somente os números</span></label>
+            <!-- onblur, função do html que será executada após sair do input. 
+             A função formatarCEP, nós fizemos em javascript
+             para colocar o tracinho pra ficar assim: 05100-000 -->
             <input type="text" id="cep" name="cep" class="form-control" onblur="formatarCEP(this)"
             placeholder="Entre com o CEP">
 
@@ -69,6 +72,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
 
     <script type="text/javascript">
+        // Função para mascaramento automatico de cpf ou cnpj
         var options = {
             onKeyPress: function (cpf, ev, el, op) {
                 var masks = ['000.000.000-000', '00.000.000/0000-00'];
@@ -79,7 +83,7 @@
         $('.cpfOuCnpj').length > 11 ? $('.cpfOuCnpj').mask('00.000.000/0000-00', options) : $('.cpfOuCnpj').mask('000.000.000-00#', options);
         
         // Função para buscar CEP via API do ViaCEP
-        // converte o JSON para os inputs que declaramos no form
+        // Converte o JSON para os inputs que declararamos no form
         $(document).ready(function() {
             $("#cep").blur(function() {
                 var cep = $(this).val().replace(/\D/g, '');
@@ -98,44 +102,42 @@
             });
         });
 
-       // Função para buscar CNPJ na API do minhareceita.org
-      // converte o JSON para os inputs que declaramos no form
+        // Função para buscar CNPJ na API do minhareceita.org
+        // Converte o JSON para os inputs que declararamos no form
         $(document).ready(function() {
-            $("#cpf_cnpj").blur(function() {
-            var cpf_cnpj = $(this).val().replace(/\D/g, ""); // Remove caracteres não numéricos
+           $("#cpf_cnpj").blur(function() {
+                var cpf_cnpj = $(this).val().replace(/\D/g, ""); // Remove caracteres não numéricos
 
-            if (cpf_cnpj.length === 14) { // CNPJ válido sem pontuação
-                $.getJSON(`https://minhareceita.org/${cpf_cnpj}`, function(dados) {
-                    if (!dados.erro) {
-                        $("#nome_fornecedor").val(dados.razao_social || "");
-                        $("#logradouro").val((dados.descricao_tipo_de_logradouro || "") + " " + (dados.logradouro || ""));
-                        $("#cep").val(dados.cep || "");
-                        $("#cidade").val(dados.municipio || "");
-                        $("#estado").val(dados.uf || "");
-                        $("#bairro").val(dados.bairro || "");
-                        $("#numero").val(dados.numero || "");
-                        $("#complemento").val(dados.complemento || "");
-                        $("#contato").val(dados.nome_socio || "");
-                    } else {
-                        alert("CNPJ não encontrado.");
-                    }
-                }).fail(function() {
-                    alert("Erro ao consultar a API.");
-                });
-            }
+                if (cpf_cnpj.length === 14) { // CNPJ válido sem pontuação
+                    $.getJSON(`https://minhareceita.org/${cpf_cnpj}`, function(dados) {
+                        if (!dados.erro) {
+                            $("#nome_fornecedor").val(dados.razao_social || "");
+                            $("#logradouro").val((dados.descricao_tipo_de_logradouro || "") + " " + (dados.logradouro || ""));
+                            $("#cep").val(dados.cep || "");
+                            $("#cidade").val(dados.municipio || "");
+                            $("#estado").val(dados.uf || "");
+                            $("#bairro").val(dados.bairro || "");
+                            $("#numero").val(dados.numero || "");
+                            $("#complemento").val(dados.complemento || "");
+                            $("#contato").val(dados.nome_socio || "");
+                        } else {
+                            alert("CNPJ não encontrado.");
+                        }
+                    }).fail(function() {
+                        alert("Erro ao consultar a API.");
+                    });
+                }
+            });
         });
-    });
 
-    // função para mascaramento do CEP após digitado, pra inserir o tracinho
-    function formatarCEP(input) { 
-    let valor = input.value.replace(/\D/g, ""); // Remove tudo que não for número
-    if (valor.length > 5) {
-        valor = valor.substring(0, 5) + "-" + valor.substring(5, 8);
-    }
-    input.value = valor;
-    }
-</script>
-
+        // Função para mascaramento do CEP após digitado, pra inserir o tracinho
+        function formatarCEP(input) {
+            let valor = input.value.replace(/\D/g, ""); // Remove tudo que não for número
+            if (valor.length > 5) {
+                valor = valor.substring(0, 5) + "-" + valor.substring(5, 8);
+            }
+            input.value = valor;
+        }
     </script>
 </body>
 </html>

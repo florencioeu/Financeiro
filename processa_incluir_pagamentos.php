@@ -1,4 +1,7 @@
-<?php	
+<?php
+include 'conexao.php'; // Conexão com o banco de dados
+
+// Obtém os valores do formulário
 $data_vcto = isset($_POST['data_vcto']) ? $_POST['data_vcto'] : '';
 $parcelas = isset($_POST['parcelas']) ? (int) $_POST['parcelas'] : 0;
 $id_fornecedor = isset($_POST['id_fornecedor']) ? $_POST['id_fornecedor'] : '';
@@ -9,55 +12,57 @@ $id_forma_pagto = $_POST['id_forma_pagto'];
 
 // Converte a data para um objeto DateTime
 $data = DateTime::createFromFormat('Y-m-d', $data_vcto);
-$dia_original = $data->format('d'); // Guarda o dia original
+if (!$data) {
+    echo "Data inválida!";
+    exit;
+}
 
-if ($data) {
-    for ($i = 1; $i <= $parcelas; $i++) {
-        // Obtém o mês e o ano atual
-        $mes = $data->format('m');
-        $ano = $data->format('Y');
+$dia_original = $data; // Guarda o dia original
+$dia = $dia_original->format('d'); // Corrigido
+$mes = $dia_original->format('m'); // Corrigido
+$ano = $dia_original->format('Y'); // Corrigido
+$data_vcto_parcela = $ano . "-" . $mes . "-" . $dia;
+for ($i = 1; $i <= $parcelas; $i++) {
+    
+    // Insere o registro no banco
+    $sql = "INSERT INTO pagamentos (id_fornecedor, data_vcto, valor, descricao, id_tipo_pagto, id_forma_pagto) 
+            VALUES (:id_fornecedor, :data_vcto, :valor, :descricao, :id_tipo_pagto, :id_forma_pagto)";
+    
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_fornecedor', $id_fornecedor);
+    $stmt->bindParam(':data_vcto', $data_vcto_parcela);
+    $stmt->bindParam(':valor', $valor);
+    $stmt->bindParam(':descricao', $descricao);
+    $stmt->bindParam(':id_tipo_pagto', $id_tipo_pagto);
+    $stmt->bindParam(':id_forma_pagto', $id_forma_pagto);
+    
+    if (!$stmt->execute()) {
+        echo "Erro ao inserir registro.";
+    }
+    
+// Adiciona um mês corretamente
+$mes = $mes + 1;
+if ($mes > 12) {
+    $mes = 1;
+    $ano = $ano + 1;
+}
 
-        // Exibe a data atual (pode descomentar se precisar ver a data durante o loop)
-        // echo $data->format('Y-m-d') . "<br/>";
-
-        try {
-            // Usando a data calculada no lugar de $data_vcto
-            $sql = "INSERT INTO pagamentos (id_fornecedor, data_vcto, valor, descricao, id_tipo_pagto, id_forma_pagto) 
-                    VALUES (:id_fornecedor, :data_vcto, :valor, :descricao, :id_tipo_pagto, :id_forma_pagto)";
-
-            $stmt = $pdo->prepare($sql); // Preparando a consulta SQL
-
-            // Vinculando os parâmetros
-            $stmt->bindParam(':id_fornecedor', $id_fornecedor);
-            $stmt->bindParam(':data_vcto', $data->format('Y-m-d'));  // Aqui usamos a data calculada
-            $stmt->bindParam(':valor', $valor);
-            $stmt->bindParam(':descricao', $descricao);
-            $stmt->bindParam(':id_tipo_pagto', $id_tipo_pagto);
-            $stmt->bindParam(':id_forma_pagto', $id_forma_pagto);
-
-            if ($stmt->execute()) {
-                // Redireciona para outra página se a inserção for bem-sucedida
-                header("Location: pagamentos_main.php");
-            } else {
-                echo "Erro ao inserir registro.";
-            }
-        } catch (PDOException $e) {
-            // Exceção em caso de erro na execução
-            echo "Erro: " . $e->getMessage();
-        }
-
-        // Adiciona um mês à data para calcular a próxima parcela
-        $data->modify('+1 month');
-
-        // Verifica o último dia do mês para evitar ultrapassar o limite
-        $ultimo_dia_mes = cal_days_in_month(CAL_GREGORIAN, $data->format('m'), $data->format('Y'));
-
-        // Ajusta a data para o último dia do mês caso o dia ultrapasse o limite
-        if ($data->format('d') > $ultimo_dia_mes) {
-            $data->setDate($data->format('Y'), $data->format('m'), $ultimo_dia_mes);
-        }
+// Verifica se é fevereiro e ajusta o dia se necessário
+if ($mes == 2 && $dia > 28) {
+    // Verifica se é um ano bissexto
+    if (($ano % 4 == 0 && $ano % 100 != 0) || ($ano % 400 == 0)) {
+        $data_vcto_parcela = $ano . "-" . $mes . "-29";
+    } else {
+        $data_vcto_parcela = $ano . "-" . $mes . "-28";
     }
 } else {
-    echo "Data inválida!";
+    $data_vcto_parcela = $ano . "-" . $mes . "-" . $dia;
 }
+
+     
+}
+
+// Redireciona após a inserção
+header("Location: pagamentos_main.php");
+exit;
 ?>

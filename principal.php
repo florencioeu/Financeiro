@@ -8,6 +8,7 @@ if (!isset($_SESSION['id_usuario'])) {
 // Obtém os dados da sessão
 $id_usuario = $_SESSION['id_usuario'];
 $nome_usuario = $_SESSION['nome_usuario'];
+$foto = $_SESSION['foto'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,15 +20,15 @@ $nome_usuario = $_SESSION['nome_usuario'];
 <body>
     <?php
     include 'menu.php';
-    ?>   
-    <center>
+    ?> 
+    <center>  
     <div class="container">
         <?php
-            echo "<h2> Bem-vindo, $nome_usuario! <h2>";
+            echo "<h2>Bem-vindo, $nome_usuario! <h2>";
         ?>
         <br>
         <img src="https://logodix.com/logo/1872111.png" width="500px" alt="">
-    </div> 
-   </center>
+    </div>
+    </center> 
 </body>
 </html>

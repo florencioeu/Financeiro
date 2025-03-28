@@ -1,5 +1,5 @@
 <?php
-include 'conexao.php'; // Conexão com o banco de dados
+include '../conexao.php'; // Conexão com o banco de dados
 
 // Obtém os valores do formulário
 $data_vcto = isset($_POST['data_vcto']) ? $_POST['data_vcto'] : '';

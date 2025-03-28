@@ -1,7 +1,7 @@
 <?php
 // Inclui os arquivos de conexão com o banco de dados e o menu da aplicação
-include 'conexao.php'; 
-include 'menu.php'; 
+include '../conexao.php'; 
+include '../menu.php'; 
 
 // Verifica se os valores foram enviados pelo formulário e os captura
 // Se não forem enviados, atribui uma string vazia para evitar erros
@@ -33,7 +33,9 @@ if (!empty($data_inicial) && !empty($data_final)) {
 // Executa a consulta
 $stmt->execute();
 ?>
-
+<link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div class="container">
     <!-- Formulário para entrada de datas de pesquisa -->
     <form action="pagamentos_main.php" method="post"> 
@@ -62,7 +64,7 @@ $stmt->execute();
     <br><br> 
     
     <!-- Tabela para exibir os pagamentos filtrados -->
-    <table class="table table-striped">
+    <table id="" class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -73,6 +75,7 @@ $stmt->execute();
                 <th>Valor</th>
                 <th>Editar</th>
                 <th>Excluir</th>
+                <th>Baixar</th>
             </tr>
         </thead>
         <tbody>
@@ -87,9 +90,13 @@ $stmt->execute();
                 <!-- Formata o valor para exibição com duas casas decimais -->
                 <td><?php echo number_format($row['valor'], 2, ",", "."); ?></td>
                 <!-- Botão para editar o pagamento -->
-                <td><a href="editar_pagamentos.php?id_pagamento=<?php echo htmlspecialchars($row['id_pagamento']); ?>" class="btn btn-primary">Editar</a></td>
+                <td><a href="editar_pagamentos.php?id_pagamento=<?php echo htmlspecialchars($row['id_pagamento']); ?>" class="btn btn-primary"><i class="material-icons">edit</i></a></td>
                 <!-- Botão para excluir o pagamento -->
-                <td><a href="#" onclick="confirmarExclusao(<?php echo htmlspecialchars($row['id_pagamento']); ?>)" class="btn btn-danger">Excluir</a></td>
+                <td><a href="#" onclick="confirmarExclusao(<?php echo htmlspecialchars($row['id_pagamento']); ?>)" class="btn btn-danger"><i class="material-icons">delete</i></a></td>
+                <!-- Botão para baixar -->
+                <td><a href="#" onclick="confirmarBaixa(<?php echo htmlspecialchars($row['id_pagamento']); ?>)" 
+                class="btn btn-secondary"><i class="material-icons">attach_money</i></a></td>
+
             </tr>
         <?php endwhile; ?>
         </tbody>
@@ -134,5 +141,56 @@ $stmt->execute();
         <div class="col-sm">
             <?php include 'pagamentos_grafico.php'; ?>
         </div>        
-    </div>    
+    </div> 
+    
+    <!-- Inicio modal da baixa do pagamento -->
+
+<div class="modal fade" id="confirmBaixa" tabindex="-1" role="dialog" 
+  aria-labelledby="confirmBaixaLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmBaixaLabel">Baixar Pagamento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="Data do pagamento"></label>
+        <input type="date" id="data_pagto" name="data_pagto" class="form-control" >
+        <label for="Valor do pagamento"></label>
+        <input type="text" id="valor_pago" name="valor_pago" class="form-control" >       
+      </div>
+      <div class="modal-footer">
+        <!-- O data-dismiss="modal", simplesmente fechará o modal -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <!-- Note o nome do botão que está no id: confirmBaixaBtn
+         Quando pressionado irá acionar o javascript que acionará a exclusão -->
+        <button type="button" class="btn btn-danger" id="confirmBaixaBtn">Baixar</button>
+      </div>
+    </div>
+  </div>
+</div>     
+    <!-- Final modal da baixa do pagamento -->    
+
+
+
 </div>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+<script>
+    new DataTable('#example');
+</script>
+
+
+<script>
+    // Comantário no Javascript e PHP
+    function confirmarBaixa(id) {
+        $('#confirmBaixa').modal('show');
+         document.getElementById('confirmBaixaBtn').onclick = function() {
+            window.location.href = "baixa_pagamentos.php?id_pagamento=" + id;
+        };
+    }
+</script>

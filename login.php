@@ -26,6 +26,7 @@ try {
             // Armazenar os dados na sessão
             $_SESSION['id_usuario'] = $id_usuario;
             $_SESSION['nome_usuario'] = $nome_usuario;
+            $_SESSION['foto'] = $foto;
 
             // Redirecionar para principal.php
             header('location:principal.php');

@@ -1,4 +1,4 @@
-<!-- forma_pagamentos_main.php -->
+<!-- forma_pagamentos_main -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -20,11 +20,11 @@
 </head>
 <body>
 <?php
-    include 'conexao.php'; // Incluímos o arquivo de conexão
-    include 'menu.php';  // incluímos o menu nesse PHP
+    include '../conexao.php'; // Incluímos o arquivo de conexão
+    include '../menu.php';  // incluímos o menu nesse PHP
 ?>  
 <div class="container">
-<a href="incluir_forma_pagamentos.php" class="btn btn-primary">Novo forma Pagamento</a>
+<a href="incluir_forma_pagamentos.php" class="btn btn-primary">Nova forma Pagamento</a>
 <br><br> 
 <table class="table table-striped">
   <thead>
@@ -71,7 +71,7 @@
         </button>
       </div>
       <div class="modal-body">
-        Tem certeza que deseja excluir essa forma de pagamento?
+        Tem certeza que deseja excluir essa forma de pagto?
       </div>
       <div class="modal-footer">
         <!-- O data-dismiss="modal", simplesmente fechará o modal -->

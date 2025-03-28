@@ -9,10 +9,10 @@
 <body>
     <div class="container">
     <?php
-        include 'menu.php';  // incluímos o menu nesse PHP
+        include '../menu.php';  // incluímos o menu nesse PHP
     ?>         
     <?php
-      include 'conexao.php'; // Incluimos a conexão
+      include '../conexao.php'; // Incluimos a conexão
     ?> 
     <form action="processa_incluir_recebimentos.php" method="post">
         <label for="data_vcto">Data de Vencimento</label>
@@ -20,7 +20,7 @@
  
         <label for="nome_cliente">Nome do Cliente</label>
         <select name="id_cliente" id="id_cliente" class="form-control">
-            <option value="0">--Selecione o Cliente' --</option>  
+            <option value="0">--Selecione o Cliente--</option>  
             <?php  
             try {
             // consulta na tabela    

@@ -7,24 +7,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-<?php
-  include 'menu.php'; // incluimos o menu neste php
-  ?>
+    <?php
+        include '../menu.php';  // incluímos o menu nesse PHP
+    ?> 
     <div class="container">
     <form action="processa_incluir_tipo_pagamentos.php" method="post">
         <label for="descricao_tipo">Descrição</label>
-        <input type="text" id="descricao" name="descricao_tipo" class="form-control cpfOuCnpj"
-        placeholder="Entre com a descriçao"  required>
-       
+        <input type="text" id="descricao" name="descricao_tipo" class="form-control" 
+        placeholder="Entre com a descrição" required> 
+
         <button type="submit" id="botao" class="btn btn-primary">Incluir</button>        
     </form>
     </div>
     <!-- Carregando bibliotecas corretamente -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js">
- 
     </script>
-
 </body>
 </html>
- 

@@ -9,12 +9,11 @@
 <body>
     <div class="container">
     <?php
-        include 'menu.php';  // incluímos o menu nesse PHP
-    ?>        
-    <?php
-      include 'conexao.php'; // Incluimos a conexão
-    ?>
-    <form action="">
+        include '../menu.php';  // incluímos o menu nesse PHP
+
+      include '../conexao.php'; // Incluimos a conexão
+    ?> 
+    <form action="processa_incluir_pagamentos.php" method="post">
         <label for="data_vcto">Data de Vencimento</label>
         <input type="date" id="data_vcto" name="data_vcto" class="form-control">
  
@@ -38,11 +37,11 @@
             }
          ?>
         </select>
- 
+
         <label for="descricao">Descrição do Pagamento</label>
-        <input type="text" id="descricao" name="descricao"
+        <input type="text" id="descricao" name="descricao" 
         class="form-control">
- 
+
         <label for="id_tipo_pagto">Tipo do pagamento</label>
         <select name="id_tipo_pagto" id="id_tipo_pagto" class="form-control">
             <option value="0">--Selecione o Tipo --</option>  
@@ -63,20 +62,43 @@
             }
          ?>
         </select>  
+
+        <label for="id_forma_pagto">Forma do pagamento</label>
+        <select name="id_forma_pagto" id="id_forma_pagto" class="form-control">
+            <option value="0">--Selecione a Forma Pagto --</option>  
+            <?php  
+            try {
+            // consulta na tabela    
+            $sql = "SELECT * FROM forma_pagamentos ORDER BY descricao_forma";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            // laço para trazer linha a linha (row)
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $id_forma_pagto = htmlspecialchars($row['id_forma_pagto']);
+                $descricao_forma = $row['descricao_forma'];
+                echo "<option value='$id_forma_pagto'>$descricao_forma</option>";
+            }
+             } catch (PDOException $e) {
+                echo "Erro: " . $e->getMessage();
+            }
+         ?>
+        </select>  
+
         
+
+
         <label for="valor">Valor</label>
-        <input type="number" id="valor" name="valor"
-        class="form-control">
- 
+        <input type="text" id="valor" name="valor" 
+        class="form-control">        
+
         <label for="parcelas">N.Parcelas</label>
-        <input type="number" id="parcelas" name="parcelas" min="1" max="12"
+        <input type="number" id="parcelas" name="parcelas" min="1" max="12" 
         class="form-control">
 
         <label for="baixa">Baixa pagamento?</label>
         <input type="checkbox" id="baixa" name="baixa" value="1">
         <br><br>
-        <button type="submit" form="incluir" class="btn btn-primary">
-            Incluir</button>
+        <button type="submit" id="botao" class="btn btn-primary">Incluir</button>
     </form>
     </div>
 </body>

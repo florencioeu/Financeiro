@@ -1,0 +1,27 @@
+CREATE TABLE `recebimentos` (
+  `id_recebimento` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL DEFAULT 0,
+  `data_vcto` date NOT NULL,
+  `valor` decimal(10,0) NOT NULL DEFAULT 0,
+  `data_recebimento` date NOT NULL,
+  `valor_recebido` decimal(10,0) NOT NULL DEFAULT 0,
+  `descricao` varchar(80) NOT NULL,
+  `id_forma_recebimento` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+
+ALTER TABLE `recebimentos`
+  ADD PRIMARY KEY (`id_recebimento`),
+  ADD KEY `id_cliente` (`id_cliente`),
+
+
+ALTER TABLE `recebimentos`
+  MODIFY `id_recebimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+
+
+
+
+ALTER TABLE `recebimentos`
+  ADD CONSTRAINT `id_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),

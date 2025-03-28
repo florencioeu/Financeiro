@@ -10,13 +10,13 @@
     <?php
     include 'conexao.php';
     include 'menu.php';
-    $id_forma_pagto = $_GET['id_forma_pagto'];
-    $sql = "SELECT * FROM forma_pagamentos WHERE id_forma_pagto = :id_forma_pagto";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':id_forma_pagto', $id_forma_pagto, PDO::PARAM_INT);
-    $stmt->execute();
-    $forma_pagto = $stmt->fetch(PDO::FETCH_ASSOC);
- 
+    $id_forma_pagto = $_GET['id_forma_pagto']; 
+    $sql = "SELECT * FROM forma_pagamentos WHERE id_forma_pagto = :id_forma_pagto"; 
+    $stmt = $pdo->prepare($sql); 
+    $stmt->bindParam(':id_forma_pagto', $id_forma_pagto, PDO::PARAM_INT); 
+    $stmt->execute(); 
+    $forma_pagto = $stmt->fetch(PDO::FETCH_ASSOC); 
+
     if ($forma_pagto) {
         $id_forma_pagto = $forma_pagto['id_forma_pagto'];
         $descricao_forma = $forma_pagto['descricao_forma'];
@@ -26,7 +26,7 @@
     <form action="processa_editar_forma_pagamentos.php" method="post">
         <input type="hidden" id="id_forma_pagto" name="id_forma_pagto" value="<?php echo $id_forma_pagto ?>">
         <label for="descricao_forma">Forma Pagamento</label>
-        <input type="text" id="descricao_forma" name="descricao_forma" class="form-control"
+        <input type="text" id="descricao_forma" name="descricao_forma" class="form-control" 
         placeholder="Entre com o nome" value="<?php echo $descricao_forma ?>" required>
         <button type="submit" id="botao" class="btn btn-primary">Alterar</button>        
     </form>

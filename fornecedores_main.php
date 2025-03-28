@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fornecedores</title>
-    <link rel="stylesheet"
+    <link rel="stylesheet" 
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!-- Comentário no HTML -->    
     <script>
@@ -18,16 +18,13 @@
     </script>
 </head>
 <body>
-  <?php
-  include 'conexao.php'; // incluimos o arquivo de conexão
-  include 'menu.php'; // incluimos o menu neste php
-  ?>
-<div class="container">
 <?php
-    include 'conexao.php'; // Inclui o arquivo de conexão
-?>    
+    include '../conexao.php'; // Incluímos o arquivo de conexão
+    include '../menu.php';  // incluímos o menu nesse PHP
+?>  
+<div class="container">
 <a href="incluir_fornecedores.php" class="btn btn-primary">Novo Fornecedor</a>
-<br><br>
+<br><br> 
 <table class="table table-striped">
   <thead>
     <tr>
@@ -35,6 +32,7 @@
       <th scope="col">Nome Fornecedor</th>
       <th scope="col">Editar</th>
       <th scope="col">Excluir</th>
+
     </tr>
   </thead>
   <tbody>
@@ -49,20 +47,21 @@
     <tr>
       <td><?php echo htmlspecialchars($id_fornecedor); ?></td>
       <td><?php echo htmlspecialchars($nome_fornecedor); ?></td>
-      <td><a href="editar_fornecedores.php?id_fornecedor=<?php echo
-      htmlspecialchars($id_fornecedor); ?>"
+      <td><a href="editar_fornecedores.php?id_fornecedor=<?php echo 
+      htmlspecialchars($id_fornecedor); ?>" 
       class="btn btn-primary">Editar</a></td>
-      <td><a href="#" onclick="confirmarExclusao(<?php echo htmlspecialchars($id_fornecedor); ?>)"
+      <td><a href="#" onclick="confirmarExclusao(<?php echo htmlspecialchars($id_fornecedor); ?>)" 
       class="btn btn-danger">Excluir</a></td>
+     
     </tr>
     <?php
         }
     ?>
   </tbody>
 </table>
- 
+
 <!-- Modal de Confirmação -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" 
   aria-labelledby="confirmModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -89,6 +88,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-   
+    
 </body>
 </html>
