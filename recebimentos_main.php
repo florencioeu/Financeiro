@@ -1,7 +1,7 @@
 <?php
 // Inclui os arquivos de conexão com o banco de dados e o menu da aplicação
-include '../conexao.php'; 
-include '../menu.php'; 
+include 'conexao.php'; 
+include 'menu.php'; 
 
 // Verifica se os valores foram enviados pelo formulário e os captura
 // Se não forem enviados, atribui uma string vazia para evitar erros

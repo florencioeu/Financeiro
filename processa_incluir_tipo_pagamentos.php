@@ -1,6 +1,6 @@
 <?php
 // processa_incluir_tipo_pagamentos.php
-include '../conexao.php'; // conectamos o banco de dados
+include 'conexao.php'; // conectamos o banco de dados
 $descricao_tipo = $_POST['descricao_tipo'];
 
 try {

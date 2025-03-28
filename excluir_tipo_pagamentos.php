@@ -1,6 +1,6 @@
 <?php
 // excluir_tipo_pagamentos.php
-include '../conexao.php'; // Conectamos ao banco de dados
+include 'conexao.php'; // Conectamos ao banco de dados
 
 $id_tipo_pagto = $_GET['id_tipo_pagto'];
 

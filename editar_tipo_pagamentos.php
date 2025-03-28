@@ -8,8 +8,8 @@
 </head>
 <body>
     <?php
-    include '../conexao.php';
-    include '../menu.php';
+    include 'conexao.php';
+    include 'menu.php';
     $id_tipo_pagto = $_GET['id_tipo_pagto']; 
     $sql = "SELECT * FROM tipo_pagamentos WHERE id_tipo_pagto = :id_tipo_pagto"; 
     $stmt = $pdo->prepare($sql); 

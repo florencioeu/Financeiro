@@ -19,8 +19,8 @@
 </head>
 <body>
 <?php
-    include '../conexao.php'; // Incluímos o arquivo de conexão
-    include '../menu.php';  // incluímos o menu nesse PHP
+    include 'conexao.php'; // Incluímos o arquivo de conexão
+    include 'menu.php';  // incluímos o menu nesse PHP
 ?>  
 <div class="container">
 <a href="incluir_clientes.php" class="btn btn-primary">Novo cliente</a>

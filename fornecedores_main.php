@@ -19,8 +19,8 @@
 </head>
 <body>
 <?php
-    include '../conexao.php'; // Incluímos o arquivo de conexão
-    include '../menu.php';  // incluímos o menu nesse PHP
+    include 'conexao.php'; // Incluímos o arquivo de conexão
+    include 'menu.php';  // incluímos o menu nesse PHP
 ?>  
 <div class="container">
 <a href="incluir_fornecedores.php" class="btn btn-primary">Novo Fornecedor</a>
@@ -32,7 +32,6 @@
       <th scope="col">Nome Fornecedor</th>
       <th scope="col">Editar</th>
       <th scope="col">Excluir</th>
-
     </tr>
   </thead>
   <tbody>
@@ -52,7 +51,6 @@
       class="btn btn-primary">Editar</a></td>
       <td><a href="#" onclick="confirmarExclusao(<?php echo htmlspecialchars($id_fornecedor); ?>)" 
       class="btn btn-danger">Excluir</a></td>
-     
     </tr>
     <?php
         }

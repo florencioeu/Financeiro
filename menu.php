@@ -1,6 +1,7 @@
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="../principal.php">
+  <a class="navbar-brand" href="principal.php">
   <img src="https://logodix.com/logo/1872111.png" width="200px" alt="">
   </a>
   
@@ -11,7 +12,7 @@
   <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="../principal.php">Home <span class="sr-only">(página atual)</span></a>
+        <a class="nav-link" href="principal.php">Home <span class="sr-only">(página atual)</span></a>
       </li>
 
       <li class="nav-item dropdown">
@@ -19,23 +20,23 @@
           Cadastros
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="fornecedores/fornecedores_main.php">Fornecedores</a>
-          <a class="dropdown-item" href="clientes/clientes_main.php">Clientes</a>
+          <a class="dropdown-item" href="fornecedores_main.php">Fornecedores</a>
+          <a class="dropdown-item" href="clientes_main.php">Clientes</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="tipo_pagamentos/tipo_pagamentos_main.php">Tipo Pagamentos</a>
-          <a class="dropdown-item" href="forma_pagamentos/forma_pagamentos_main.php">Forma Pagamentos</a>
+          <a class="dropdown-item" href="tipo_pagamentos_main.php">Tipo Pagamentos</a>
+          <a class="dropdown-item" href="forma_pagamentos_main.php">Forma Pagamentos</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="usuarios_main.php">Usuários</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pagamentos/pagamentos_main.php">Pagamentos</a>
+        <a class="nav-link" href="pagamentos_main.php">Pagamentos</a>
       </li>  
       <li class="nav-item">
-        <a class="nav-link" href="recebimentos/recebimentos_main.php">Recebimentos</a>
+        <a class="nav-link" href="recebimentos_main.php">Recebimentos</a>
       </li>            
       <li class="nav-item">
-        <a class="nav-link" href="relatorio/relatorio_fluxo.php" target="_blank">Relatórios</a>
+        <a class="nav-link" href="#">Relatórios</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="logoff.php">Sair do sistema</a>
