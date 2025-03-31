@@ -8,7 +8,7 @@ $data_final = isset($_POST['data_final']) ? $_POST['data_final'] : '';
 $sql = "SELECT * FROM pagamentos
         INNER JOIN fornecedores ON pagamentos.id_fornecedor = fornecedores.id_fornecedor
         INNER JOIN tipo_pagamentos ON pagamentos.id_tipo_pagto = tipo_pagamentos.id_tipo_pagto
-        WHERE 1=1";
+        WHERE 1=1 and valor_pago=0";
  
 if (!empty($data_inicial) && !empty($data_final)) {
     $sql .= " AND data_vcto BETWEEN :data_inicial AND :data_final";
@@ -51,7 +51,7 @@ $stmt->execute();
     <br>
     <a href="incluir_pagamentos.php" class="btn btn-primary">Novo Pagamento</a>
     <br><br>
-   
+    <form action="baixa_pagamentos_lotes.php" method="post">  
     <table class="table table-striped">
         <thead>
             <tr>
@@ -64,12 +64,22 @@ $stmt->execute();
                 <th>Editar</th>
                 <th>Excluir</th>
                 <th>Baixar</th>
+                <th>Lote</th>
             </tr>
         </thead>
         <tbody>
-        <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+ 
+        <?php
+        $contador = 0;
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
+            $contador = $contador+1;
+             ?>
             <tr>
-                <td><?php echo htmlspecialchars($row['id_pagamento']); ?></td>
+                <td><?php echo htmlspecialchars($row['id_pagamento']); ?>
+ 
+                <input type="hidden" name="id_pagamento<?php echo($contador); ?>" id="id_pagamento<?php echo($contador); ?>" value="<?php echo htmlspecialchars($row['id_pagamento']); ?>">
+           
+            </td>
                 <td><?php echo htmlspecialchars($row['nome_fornecedor']); ?></td>
                 <td><?php echo htmlspecialchars($row['descricao']); ?></td>
                 <td><?php echo htmlspecialchars($row['descricao_tipo']); ?></td>
@@ -78,15 +88,22 @@ $stmt->execute();
                 <td><a href="editar_pagamentos.php?id_pagamento=<?php echo $row['id_pagamento']; ?>" class="btn btn-primary"><i class="material-icons">edit</i></a></td>
                 <td><a href="#" onclick="confirmarExclusao(<?php echo $row['id_pagamento']; ?>)" class="btn btn-danger"><i class="material-icons">delete</i></a></td>
                 <td>
-                    <a href="#" onclick="confirmarBaixa(<?php echo $row['id_pagamento']; ?>, <?php echo $row['id_pagamento']; ?>)"
+                    <a href="baixa_pagamentos.php?id_pagamento=<?php echo $row['id_pagamento']; ?>"  
                        class="btn btn-secondary">
                         <i class="material-icons">attach_money</i>
                     </a>
+                </td>
+                <td>
+                   <input type="checkbox" name="check<?php echo ($contador); ?>" id="check<?php echo ($contador); ?>" class="form-control" value="1">
+                   <!--check<?php echo ($contador); ?>-->
                 </td>
             </tr>
         <?php endwhile; ?>
         </tbody>
     </table>
+    <input type="hidden" name="total" id="total" value="<?php echo($contador); ?>">
+    <button type="submit" id="botao" class="btn btn-primary">Baixar Lote</button>
+    </form>
     <hr>
     <div class="row">
  
@@ -102,7 +119,7 @@ $stmt->execute();
         <tbody>          
         <?php
             // consulta relacionada tabela tipo de pagamentos com pagamentos
-            $sql2 = "SELECT tipo_pagamentos.descricao_tipo,sum(valor) as total FROM pagamentos inner join tipo_pagamentos on pagamentos.id_tipo_pagto=tipo_pagamentos.id_tipo_pagto WHERE 1=1";
+            $sql2 = "SELECT tipo_pagamentos.descricao_tipo,sum(valor) as total FROM pagamentos inner join tipo_pagamentos on pagamentos.id_tipo_pagto=tipo_pagamentos.id_tipo_pagto WHERE 1=1 and valor_pago=0";
             if (!empty($data_inicial) && !empty($data_final)) {
               // consulta entra faixa de datas
               $sql2 .= " AND data_vcto BETWEEN :data_inicial AND :data_final";
@@ -131,35 +148,14 @@ $stmt->execute();
  
 </div>
  
-<div class="modal fade" id="confirmBaixa" tabindex="-1" role="dialog" aria-labelledby="confirmBaixaLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmBaixaLabel">Baixar Pagamento</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input type="text" id="id_pagamento" value="<?php echo($row['id_pagamento']); ?>">
- 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-danger" id="confirmBaixaBtn">Baixar</button>
-      </div>
-    </div>
-  </div>
-</div>
- 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
-    function confirmarBaixa(id_pagamento) {
-        $('#confirmBaixa').modal('show');
-        document.getElementById('id_pagamento').value = id_pagamento;
-        document.getElementById('confirmBaixaBtn').onclick = function() {
-            window.location.href = "baixa_pagamentos.php?id_pagamento=" + id_pagamento;
-        };
-    }
+function confirmarBaixa(id_pagamento) {
+    $('#confirmBaixa').modal('show');
+    document.getElementById('id_pagamento').value = id_pagamento;
+    document.getElementById('confirmBaixaBtn').onclick = function() {
+        window.location.href = "pagamentos_main.php?id_pagamento=" + id_pagamento;
+    };
+}
 </script>
