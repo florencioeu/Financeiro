@@ -8,7 +8,7 @@ $data_final = isset($_POST['data_final']) ? $_POST['data_final'] : '';
 $sql = "SELECT * FROM pagamentos 
         INNER JOIN fornecedores ON pagamentos.id_fornecedor = fornecedores.id_fornecedor 
         INNER JOIN tipo_pagamentos ON pagamentos.id_tipo_pagto = tipo_pagamentos.id_tipo_pagto 
-        WHERE 1=1 and valor_pago=0";
+        WHERE 1=1";
 
 if (!empty($data_inicial) && !empty($data_final)) {
     $sql .= " AND data_vcto BETWEEN :data_inicial AND :data_final";
@@ -26,14 +26,12 @@ if (!empty($data_inicial) && !empty($data_final)) {
 $stmt->execute();
 ?>
 
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">  
+<link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="style.css">
 
-<div class="margens">
-    <form action="pagamentos_main.php" method="post">
+<div class="container">
+    <form action="pagamentos_main.php" method="post"> 
         <div class="row">
             <div class="col-sm">
                 <label for="data_inicial">Data Inicial</label>
@@ -45,18 +43,16 @@ $stmt->execute();
             </div>
             <div class="col-sm">
                 <br>
-                <button type="submit" id="botao" class="btn btn-primary"><i class="material-icons">search</i>Pesquisar</button>
+                <button type="submit" id="botao" class="btn btn-primary">Pesquisar</button>
             </div>
-            <div class="col-sm" style="text-align: right;">
-                <br>
-                <a href="incluir_pagamentos.php" class="btn btn-primary"><i class="material-icons">add</i> Novo Pagamento</a>
-            </div>            
         </div>  
     </form> 
-    <hr>
 
-    <form action="baixa_pagamentos_lotes.php" method="post">  
-    <table id="myTable" class="table table-striped table-bordered dt-responsive nowrap">
+    <br>
+    <a href="incluir_pagamentos.php" class="btn btn-primary">Novo Pagamento</a>
+    <br><br> 
+    <form action="baixa_lotes.php">  
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -72,18 +68,15 @@ $stmt->execute();
             </tr>
         </thead>
         <tbody>
-
+         
         <?php 
         $contador = 0;
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): 
             $contador = $contador+1;
-             ?>
-            <tr>
-                <td><?php echo htmlspecialchars($row['id_pagamento']); ?>
-
-                <input type="hidden" name="id_pagamento<?php echo($contador); ?>" id="id_pagamento<?php echo($contador); ?>" value="<?php echo htmlspecialchars($row['id_pagamento']); ?>">
             
-            </td>
+            ?>
+            <tr>
+                <td><?php echo htmlspecialchars($row['id_pagamento']); ?></td>
                 <td><?php echo htmlspecialchars($row['nome_fornecedor']); ?></td>
                 <td><?php echo htmlspecialchars($row['descricao']); ?></td>
                 <td><?php echo htmlspecialchars($row['descricao_tipo']); ?></td>
@@ -98,18 +91,15 @@ $stmt->execute();
                     </a>
                 </td>
                 <td>
-                   <input type="checkbox" name="check<?php echo ($contador); ?>" id="check<?php echo ($contador); ?>" class="form-control" value="1"> 
+                   <input type="checkbox" name="check<?php echo ($contador); ?>" id="check<?php echo ($contador); ?>" class="form-control"> 
                    <!--check<?php echo ($contador); ?>-->
                 </td>
             </tr>
         <?php endwhile; ?>
         </tbody>
     </table>
-    <div style="text-align: right;">
-    <input type="hidden" name="total" id="total" value="<?php echo($contador); ?>"> 
-    <hr>
+    
     <button type="submit" id="botao" class="btn btn-primary">Baixar Lote</button>
-    </div>
     </form>
     <hr>
     <div class="row">
@@ -126,7 +116,7 @@ $stmt->execute();
         <tbody>          
         <?php
             // consulta relacionada tabela tipo de pagamentos com pagamentos
-            $sql2 = "SELECT tipo_pagamentos.descricao_tipo,sum(valor) as total FROM pagamentos inner join tipo_pagamentos on pagamentos.id_tipo_pagto=tipo_pagamentos.id_tipo_pagto WHERE 1=1 and valor_pago=0";
+            $sql2 = "SELECT tipo_pagamentos.descricao_tipo,sum(valor) as total FROM pagamentos inner join tipo_pagamentos on pagamentos.id_tipo_pagto=tipo_pagamentos.id_tipo_pagto WHERE 1=1";
             if (!empty($data_inicial) && !empty($data_final)) {
               // consulta entra faixa de datas
               $sql2 .= " AND data_vcto BETWEEN :data_inicial AND :data_final";
@@ -148,8 +138,7 @@ $stmt->execute();
         </tbody>
         </table>
         </div>
-        <div class="col-sm" style="text-align: center;">
-            <h3>Dashboard</h3>
+        <div class="col-sm">
             <?php include 'pagamentos_grafico.php'; ?>
         </div>        
     </div>    
@@ -158,31 +147,6 @@ $stmt->execute();
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
-    <!-- DataTables JS -->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
-    
-    <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable({
-                responsive: true,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json'
-                },
-                pageLength: 10,
-                order: [[0, 'asc']],
-                dom: '<"top"lf>rt<"bottom"ip><"clear">',
-                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]]
-            });
-        });
-    </script>
-
-
-
-
 <script>
 function confirmarBaixa(id_pagamento) {
     $('#confirmBaixa').modal('show');

@@ -14,7 +14,7 @@
 
           <?php
              // consulta relacionada tabela tipo de pagamentos com pagamentos
-             $sql2 = "SELECT tipo_pagamentos.descricao_tipo,sum(valor) as total FROM pagamentos inner join tipo_pagamentos on pagamentos.id_tipo_pagto=tipo_pagamentos.id_tipo_pagto WHERE 1=1";
+             $sql2 = "SELECT tipo_pagamentos.descricao_tipo,sum(valor) as total FROM pagamentos inner join tipo_pagamentos on pagamentos.id_tipo_pagto=tipo_pagamentos.id_tipo_pagto WHERE 1=1 and valor_pago=0";
              if (!empty($data_inicial) && !empty($data_final)) {
                // consulta entra faixa de datas
                $sql2 .= " AND data_vcto BETWEEN :data_inicial AND :data_final";
@@ -45,6 +45,9 @@
     </script>
   </head>
   <body>
-    <div id="piechart_3d" style="width: 450px; height: 250px;"></div>
+  <body>
+  <div id="piechart_3d" style="width: 550px; height: 300px; margin: 0 auto; display: block;">
+  </div>
+
   </body>
 </html>

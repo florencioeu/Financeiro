@@ -14,7 +14,7 @@ try {
     $sql = "UPDATE pagamentos SET data_vcto = :data_vcto, id_fornecedor = :id_fornecedor,  descricao = :descricao, id_forma_pagto = :id_forma_pagto, id_tipo_pagto = :id_tipo_pagto, valor = :valor where id_pagamento = :id_pagamento";
     // Preparação para o PDO
     $stmt = $pdo->prepare($sql); // Prepara a declaração SQL
-    $stmt->bindParam(':id_pagamento', $id_pagamento, PDO::PARAM_INT);
+    $stmt->bindParam(':id_pagamento', $id_pagamento, PDO::PARAM_INT); 
     $stmt->bindParam(':data_vcto', $data_vcto);
     $stmt->bindParam(':id_fornecedor', $id_fornecedor);
     $stmt->bindParam(':descricao', $descricao);
@@ -22,6 +22,7 @@ try {
     $stmt->bindParam(':id_tipo_pagto', $id_tipo_pagto);
     $stmt->bindParam(':valor', $valor);
     // executa a query
+    // Se a execução for bem sucedida
     if ($stmt->execute()) {
         // retorna para a lista dos pagamentos
         header("Location: pagamentos_main.php"); // Retorna para a página de consulta

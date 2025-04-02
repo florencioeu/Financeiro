@@ -1,8 +1,8 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="principal.php">
-  <img src="https://logodix.com/logo/1872111.png" width="200px" alt="">
+  <a class="navbar-brad" href="principal.php">
+  <img src="https://cdna.artstation.com/p/assets/images/images/005/172/886/large/joao-pedro-oliveira-logo.jpg?1489030448" width="150px" alt="">
   </a>
   
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
@@ -35,8 +35,17 @@
       <li class="nav-item">
         <a class="nav-link" href="recebimentos_main.php">Recebimentos</a>
       </li>            
-      <li class="nav-item">
-        <a class="nav-link" href="#">Relatórios</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Relatórios
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Pagamentos</a>
+          <a class="dropdown-item" href="#">Recebimentos</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="relatorio_fluxo.php" >Fluxo de Caixa</a>
+         
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="logoff.php">Sair do sistema</a>

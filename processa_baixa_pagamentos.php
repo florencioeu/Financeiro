@@ -9,7 +9,7 @@ try {
     $sql = "UPDATE pagamentos SET data_pagto = :data_pagto, valor_pago = :valor_pago where id_pagamento = :id_pagamento";
     // Preparação para o PDO
     $stmt = $pdo->prepare($sql); // Prepara a declaração SQL
-    $stmt->bindParam(':id_pagamento', $id_pagamento, PDO::PARAM_INT);
+    $stmt->bindParam(':id_pagamento', $id_pagamento, PDO::PARAM_INT); 
     $stmt->bindParam(':data_pagto', $data_pagto);
     $stmt->bindParam(':valor_pago', $valor_pago);
     // executa a query

@@ -19,18 +19,21 @@
       // pegamos o parametro do id_pagamento para fazer a consulta abaixo
       $sql="select * from pagamentos where id_pagamento=:id_pagamento";
       // Preparação da consulta em PDO
-      $stmt = $pdo->prepare($sql);
-      $stmt->bindParam(':id_pagamento', $id_pagamento, PDO::PARAM_INT);
+      $stmt = $pdo->prepare($sql); 
+      $stmt->bindParam(':id_pagamento', $id_pagamento, PDO::PARAM_INT); 
       // Executa a query (consulta)
-      $stmt->execute();
-      $resultado_pagamentos = $stmt->fetch(PDO::FETCH_ASSOC);
+      $stmt->execute(); 
+      $resultado_pagamentos = $stmt->fetch(PDO::FETCH_ASSOC); 
       // Trazendo os campos da tabela e inserindo em variáveis
       $data_vcto = $resultado_pagamentos['data_vcto'];
       // Foi dado outro nome ao id_fornecedor para não conflitar na hora ce comparar no seletor
       $id_fornecedor2 = $resultado_pagamentos['id_fornecedor'];
       $descricao = $resultado_pagamentos['descricao'];
-      $id_tipo_pagto = $resultado_pagamentos['id_tipo_pagto'];
-    ?>
+      $id_tipo_pagto2 = $resultado_pagamentos['id_tipo_pagto'];
+      $id_forma_pagto2 = $resultado_pagamentos['id_forma_pagto'];
+      $valor = $resultado_pagamentos['valor'];
+      $data_vcto = $resultado_pagamentos['data_vcto'];
+    ?> 
     <form action="processa_editar_pagamentos.php" method="post">
         <label for="data_vcto">Data de Vencimento</label>
         <input type="date" id="data_vcto" name="data_vcto" value="<?php echo $data_vcto;?>" class="form-control">
@@ -60,11 +63,11 @@
             }
          ?>
         </select>
- 
+
         <label for="descricao">Descrição do Pagamento</label>
-        <input type="text" id="descricao" value="<?php echo $descricao;?>" name="descricao"
+        <input type="text" id="descricao" value="<?php echo $descricao;?>" name="descricao" 
         class="form-control">
- 
+
         <label for="id_tipo_pagto">Tipo do pagamento</label>
         <select name="id_tipo_pagto" id="id_tipo_pagto" class="form-control">
             <option value="0">--Selecione o Tipo --</option>  
@@ -78,14 +81,18 @@
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $id_tipo_pagto = htmlspecialchars($row['id_tipo_pagto']);
                 $descricao_tipo = $row['descricao_tipo'];
-                echo "<option value='$id_tipo_pagto'>$descricao_tipo</option>";
+                $localizou_tipo='';
+                if ($id_tipo_pagto2 == $row['id_tipo_pagto']) {
+                    $localizou_tipo='selected';
+                }
+                echo "<option value='$id_tipo_pagto' $localizou_tipo>$descricao_tipo</option>";
             }
              } catch (PDOException $e) {
                 echo "Erro: " . $e->getMessage();
             }
          ?>
         </select>  
- 
+
         <label for="id_forma_pagto">Forma do pagamento</label>
         <select name="id_forma_pagto" id="id_forma_pagto" class="form-control">
             <option value="0">--Selecione a Forma Pagto --</option>  
@@ -99,26 +106,23 @@
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $id_forma_pagto = htmlspecialchars($row['id_forma_pagto']);
                 $descricao_forma = $row['descricao_forma'];
-                echo "<option value='$id_forma_pagto'>$descricao_forma</option>";
+                $localizou_forma='';
+                if ($id_forma_pagto2 == $row['id_forma_pagto']) {
+                    $localizou_forma='selected';
+                }
+                echo "<option value='$id_forma_pagto' $localizou_forma>$descricao_forma</option>";
             }
              } catch (PDOException $e) {
                 echo "Erro: " . $e->getMessage();
             }
          ?>
         </select>  
- 
         <label for="valor">Valor</label>
-        <input type="text" id="valor" name="valor"
+        <input type="text" id="valor" name="valor" value="<?php echo $valor ?>" 
         class="form-control">        
- 
-        <label for="parcelas">N.Parcelas</label>
-        <input type="number" id="parcelas" name="parcelas" min="1" max="12"
-        class="form-control">
- 
-        <label for="baixa">Baixa pagamento?</label>
-        <input type="checkbox" id="baixa" name="baixa" value="1">
+        <input type="hidden" id="id_pagamento" name="id_pagamento" value="<?php echo $id_pagamento ?>">
         <br><br>
-        <button type="submit" id="botao" class="btn btn-primary">Incluir</button>
+        <button type="submit" id="botao" class="btn btn-primary">Alterar</button>
     </form>
     </div>
 </body>
