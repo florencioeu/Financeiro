@@ -1,4 +1,15 @@
-
+<?php 
+session_start(); // Inicia a sessão
+// Verifica se o usuário está logado
+if (!isset($_SESSION['id_usuario'])) {
+    header('location:usuario_recusado.php');
+    exit();
+}
+// Obtém os dados da sessão
+$id_usuario = $_SESSION['id_usuario'];
+$nome_usuario = $_SESSION['nome_usuario'];
+$foto = $_SESSION['foto'];
+?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brad" href="principal.php">
@@ -30,17 +41,17 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pagamentos_main.php">Pagamentos</a>
+        <a class="nav-link" href="pagamentos_main.php">Contas a Pagar</a>
       </li>  
       <li class="nav-item">
-        <a class="nav-link" href="recebimentos_main.php">Recebimentos</a>
+        <a class="nav-link" href="recebimentos_main.php">Contas a Receber</a>
       </li>            
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Relatórios
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Pagamentos</a>
+          <a class="dropdown-item" href="relatorio_pagamentos.php">Pagamentos</a>
           <a class="dropdown-item" href="#">Recebimentos</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="relatorio_fluxo.php" >Fluxo de Caixa</a>

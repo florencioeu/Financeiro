@@ -8,7 +8,7 @@ $data_final = isset($_POST['data_final']) ? $_POST['data_final'] : '';
 $sql = "SELECT * FROM pagamentos 
         INNER JOIN fornecedores ON pagamentos.id_fornecedor = fornecedores.id_fornecedor 
         INNER JOIN tipo_pagamentos ON pagamentos.id_tipo_pagto = tipo_pagamentos.id_tipo_pagto 
-        WHERE 1=1 and valor_pago=0";
+        WHERE 1=1 and valor_pago=0 and oculto=0";
 
 if (!empty($data_inicial) && !empty($data_final)) {
     $sql .= " AND data_vcto BETWEEN :data_inicial AND :data_final";
@@ -31,6 +31,15 @@ $stmt->execute();
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">  
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="style.css">
+<script>
+        // Comantário no Javascript e PHP
+    function confirmarExclusao(id) {
+        $('#confirmModal').modal('show');
+            document.getElementById('confirmDeleteBtn').onclick = function() {
+            window.location.href = "excluir_pagamentos.php?id_pagamento=" + id;
+         };
+    }
+</script>
 
 <div class="margens">
     <form action="pagamentos_main.php" method="post">
@@ -152,7 +161,33 @@ $stmt->execute();
             <h3>Dashboard</h3>
             <?php include 'pagamentos_grafico.php'; ?>
         </div>        
-    </div>    
+    </div>
+    
+<!-- Modal de Confirmação -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" 
+  aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmar Exclusão</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja excluir este pagamento?
+      </div>
+      <div class="modal-footer">
+        <!-- O data-dismiss="modal", simplesmente fechará o modal -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <!-- Note o nome do botão que está no id: confirmDeleteBtn
+         Quando pressionado irá acionar o javascript que acionará a exclusão -->
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 </div>
 
@@ -175,7 +210,7 @@ $stmt->execute();
                 pageLength: 10,
                 order: [[0, 'asc']],
                 dom: '<"top"lf>rt<"bottom"ip><"clear">',
-                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]]
+                lengthMenu: [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Todos"]]
             });
         });
     </script>

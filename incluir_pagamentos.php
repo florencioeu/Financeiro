@@ -1,3 +1,15 @@
+<?php
+session_start(); // Inicia a sessão
+// Verifica se o usuário está logado
+if (!isset($_SESSION['id_usuario'])) {
+    header('location:usuario_recusado.php');
+    exit();
+}
+// Obtém os dados da sessão
+$id_usuario = $_SESSION['id_usuario'];
+$nome_usuario = $_SESSION['nome_usuario'];
+$foto = $_SESSION['foto'];
+?>
 <!DOCTYPE html>
 <!-- incluir_pagamentos.php -->
 <html lang="pt-br">
@@ -5,15 +17,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contas a pagar</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div class="container">
     <?php
-        include 'menu.php';  // incluímos o menu nesse PHP
-    ?>         
-    <?php
+      include 'menu.php';  // incluímos o menu nesse PHP
       include 'conexao.php'; // Incluimos a conexão
     ?> 
+    <div class="margens">    
     <form action="processa_incluir_pagamentos.php" method="post">
         <label for="data_vcto">Data de Vencimento</label>
         <input type="date" id="data_vcto" name="data_vcto" class="form-control">

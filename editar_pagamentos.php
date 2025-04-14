@@ -1,3 +1,15 @@
+<?php
+session_start(); // Inicia a sessão
+// Verifica se o usuário está logado
+if (!isset($_SESSION['id_usuario'])) {
+    header('location:usuario_recusado.php');
+    exit();
+}
+// Obtém os dados da sessão
+$id_usuario = $_SESSION['id_usuario'];
+$nome_usuario = $_SESSION['nome_usuario'];
+$foto = $_SESSION['foto'];
+?>
 <!DOCTYPE html>
 <!-- editar_pagamentos.php -->
 <html lang="pt-br">
@@ -5,12 +17,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar pagamento</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <?php
         include 'menu.php';  // incluímos o menu nesse PHP
     ?>
-    <div class="container">
+    <div class="margens">
          
     <?php
       include 'conexao.php'; // Incluimos a conexão

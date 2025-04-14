@@ -1,4 +1,5 @@
 <?php
+ 
 // Inclui os arquivos de conexão com o banco de dados e o menu da aplicação
 include 'conexao.php'; 
 include 'menu.php'; 
