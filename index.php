@@ -15,8 +15,12 @@
             background-color: #fff;
         }
         .logo {
-            display: block;
-            margin: 0 auto 20px;
+  
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px; /* Ajuste conforme necessário */
+
         }
         .password-wrapper {
             position: relative;
@@ -41,7 +45,11 @@
     <div class="centralizado">
     <div class="login-container">
   
-        <img src="https://logodix.com/logo/1872111.png" width="200px" alt="Logotipo" class="logo">
+        <img src="logo_senac.png" width="200px" alt="Logotipo" class="logo">
+        
+
+
+
         <form action="login.php" method="post">
             <div class="form-group">
                 <label for="email">E-mail</label>

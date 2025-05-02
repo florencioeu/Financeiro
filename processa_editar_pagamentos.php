@@ -1,35 +1,42 @@
 <?php
-// processa_editar_pagamentos.php
-include 'conexao.php'; // Conectamos ao banco de dados
-$id_pagamento = $_POST['id_pagamento']; // Chave {Não é alterada}
-$id_fornecedor = $_POST['id_fornecedor'];
-$data_vcto = $_POST['data_vcto'];
-$descricao = $_POST['descricao'];
-$id_forma_pagto = $_POST['id_forma_pagto'];
-$id_tipo_pagto = $_POST['id_tipo_pagto'];
-$valor = $_POST['valor']; ;
-// try = tentar
-try {
-    //  Query de alteração
-    $sql = "UPDATE pagamentos SET data_vcto = :data_vcto, id_fornecedor = :id_fornecedor,  descricao = :descricao, id_forma_pagto = :id_forma_pagto, id_tipo_pagto = :id_tipo_pagto, valor = :valor where id_pagamento = :id_pagamento";
-    // Preparação para o PDO
-    $stmt = $pdo->prepare($sql); // Prepara a declaração SQL
-    $stmt->bindParam(':id_pagamento', $id_pagamento, PDO::PARAM_INT);
+include 'conexao.php';  // Inclui a conexão com o banco de dados
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_pagamento = $_POST['id_pagamento'];
+    $data_vcto = $_POST['data_vcto'];
+    $id_fornecedor = $_POST['id_fornecedor'];
+    $descricao = $_POST['descricao'];
+    $id_tipo_pagto = $_POST['id_tipo_pagto'];
+    $id_forma_pagto = $_POST['id_forma_pagto'];
+    $valor = $_POST['valor'];
+
+    // SQL para atualizar o pagamento
+    $sql = "UPDATE pagamentos SET 
+                data_vcto = :data_vcto,
+                id_fornecedor = :id_fornecedor,
+                descricao = :descricao,
+                id_tipo_pagto = :id_tipo_pagto,
+                id_forma_pagto = :id_forma_pagto,
+                valor = :valor
+            WHERE id_pagamento = :id_pagamento";
+
+    $stmt = $pdo->prepare($sql);
+
+    // Bind dos parâmetros
     $stmt->bindParam(':data_vcto', $data_vcto);
     $stmt->bindParam(':id_fornecedor', $id_fornecedor);
     $stmt->bindParam(':descricao', $descricao);
-    $stmt->bindParam(':id_forma_pagto', $id_forma_pagto);
     $stmt->bindParam(':id_tipo_pagto', $id_tipo_pagto);
+    $stmt->bindParam(':id_forma_pagto', $id_forma_pagto);
     $stmt->bindParam(':valor', $valor);
-    // executa a query
+    $stmt->bindParam(':id_pagamento', $id_pagamento);
+
+    // Executa a query e redireciona com o status
     if ($stmt->execute()) {
-        // retorna para a lista dos pagamentos
-        header("Location: pagamentos_main.php"); // Retorna para a página de consulta
+        header("Location: pagamentos_main.php?status=success&acao=editar");
     } else {
-        echo "Erro ao alterar registro.";
+        header("Location: pagamentos_main.php?status=error&acao=editar");
     }
-} catch (PDOException $e) {
-    // Exceção, onde é exibido o erro segundo o PHP
-    echo "Erro: " . $e->getMessage();
+    exit;
 }
 ?>

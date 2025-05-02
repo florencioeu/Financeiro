@@ -2,9 +2,9 @@
 // processa_incluir_fornecedores.php
 include 'conexao.php'; // conectamos o banco de dados
 $cpf_cnpj = $_POST['cpf_cnpj'];
-$nome_fornecedor = $_POST['nome_fornecedor'];
+$nome_fornecedor = trim(strtoupper($_POST['nome_fornecedor']));
 $celular = $_POST['celular'];
-$email = strtolower($_POST['email']);
+$email = trim(strtolower($_POST['email']));
 $cep = $_POST['cep'];
 $logradouro = $_POST['logradouro'];
 $numero = $_POST['numero'];

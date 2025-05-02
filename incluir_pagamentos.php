@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!-- incluir_pagamentos.php -->
 <html lang="pt-br">
@@ -5,18 +6,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contas a pagar</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div class="container">
     <?php
-        include 'menu.php';  // incluímos o menu nesse PHP
-    ?>         
-    <?php
+      include 'menu.php';  // incluímos o menu nesse PHP
       include 'conexao.php'; // Incluimos a conexão
     ?> 
+    <div class="margens">    
     <form action="processa_incluir_pagamentos.php" method="post">
         <label for="data_vcto">Data de Vencimento</label>
-        <input type="date" id="data_vcto" name="data_vcto" class="form-control">
+        <input type="date" id="data_vcto" name="data_vcto" class="form-control" maxlength="10">
  
         <label for="nome_fornecedor">Nome do Fornecedor</label>
         <select name="id_fornecedor" id="id_fornecedor" class="form-control">
@@ -93,7 +93,7 @@
         class="form-control">        
 
         <label for="parcelas">N.Parcelas</label>
-        <input type="number" id="parcelas" name="parcelas" min="1" max="12" 
+        <input type="number" id="parcelas" name="parcelas" min="1" max="12" value="1"
         class="form-control">
 
         <label for="baixa">Baixa pagamento?</label>

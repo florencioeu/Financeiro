@@ -4,9 +4,9 @@ include 'conexao.php'; // Conectamos ao banco de dados
 
 $id_fornecedor = $_POST['id_fornecedor'];
 $cpf_cnpj = $_POST['cpf_cnpj'];
-$nome_fornecedor = $_POST['nome_fornecedor'];
+$nome_fornecedor = trim(strtoupper($_POST['nome_fornecedor']));
 $celular = $_POST['celular'];
-$email = strtolower($_POST['email']);
+$email = trim(strtolower($_POST['email']));
 $cep = $_POST['cep'];
 $logradouro = $_POST['logradouro'];
 $numero = $_POST['numero'];
