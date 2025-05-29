@@ -32,6 +32,5 @@ Sistema web de controle financeiro desenvolvido em PHP com MySQL. Permite o gere
 
 ## 📷 Prints do Sistema
 
-```markdown
 ![Tela de login](https://github.com/user-attachments/assets/319ffb50-3681-4df1-ad0b-ad870d3a3eeb)
 
