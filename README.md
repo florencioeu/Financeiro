@@ -38,6 +38,7 @@ Sistema web de controle financeiro desenvolvido em PHP com MySQL. Permite o gere
 Exemplo de como inserir:
 
 ```markdown
-![Tela de login](![Captura de tela 2025-05-20 191445](https://github.com/user-attachments/assets/319ffb50-3681-4df1-ad0b-ad870d3a3eeb)
+![Tela de login](https://github.com/user-attachments/assets/319ffb50-3681-4df1-ad0b-ad870d3a3eeb)
+![Painel principal](https://link-da-sua-imagem.com/painel.png))
 )
 ![Painel principal](https://link-da-sua-imagem.com/painel.png)
