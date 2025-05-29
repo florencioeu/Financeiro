@@ -34,5 +34,7 @@ Sistema web de controle financeiro desenvolvido em PHP com MySQL. Permite o gere
 
 ![Tela de login](https://github.com/user-attachments/assets/319ffb50-3681-4df1-ad0b-ad870d3a3eeb)
 ![Aba de cadastros/clientes](https://github.com/user-attachments/assets/d5a6b09f-eade-4d86-a59e-06e0d208a5db)
+![Contas a pagar](https://github.com/user-attachments/assets/738db777-b093-4bcb-b64e-881747628004)
+
 
 
