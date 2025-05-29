@@ -32,13 +32,6 @@ Sistema web de controle financeiro desenvolvido em PHP com MySQL. Permite o gere
 
 ## 📷 Prints do Sistema
 
-> ⚠️ Em breve: Adicione aqui capturas de tela do sistema em funcionamento para facilitar a visualização do projeto.  
-> Você pode usar a ferramenta **Lightshot**, **Snipping Tool**, ou o atalho `PrintScreen` + `Ctrl + V` direto no GitHub.
-
-Exemplo de como inserir:
-
 ```markdown
 ![Tela de login](https://github.com/user-attachments/assets/319ffb50-3681-4df1-ad0b-ad870d3a3eeb)
-![Painel principal](https://link-da-sua-imagem.com/painel.png))
-)
-![Painel principal](https://link-da-sua-imagem.com/painel.png)
+
